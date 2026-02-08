@@ -5,8 +5,8 @@ import {
   NavigationMenuList,
 } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
+import SearchBox from '../post/SearchBox';
 import { Button } from '../ui/button';
-import { Input } from '../ui/input';
 
 export default function PublicHeader() {
   return (
@@ -31,13 +31,7 @@ export default function PublicHeader() {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="flex items-center gap-4">
-            <Input
-              placeholder="記事を検索"
-              className="
-                w-[200px] bg-white
-                lg:w-[300px]
-              "
-            />
+            <SearchBox />
             <Button variant="outline" asChild>
               <Link href="/login">ログイン</Link>
             </Button>
