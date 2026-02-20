@@ -22,8 +22,8 @@ function handleValidationError(error: ZodError): ActionState {
   return { success: false, errors: fieldErrors as Record<string, string[]> };
 }
 
-function handleError(customeErrors: Record<string, string[]>): ActionState {
-  return { success: false, errors: customeErrors };
+function handleError(customErrors: Record<string, string[]>): ActionState {
+  return { success: false, errors: customErrors };
 }
 
 export async function createUser(prevState: ActionState, formData: FormData): Promise<ActionState> {
