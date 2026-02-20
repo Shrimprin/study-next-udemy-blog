@@ -11,7 +11,6 @@ import { Session } from 'next-auth';
 export default function Setting({ session }: { session: Session }) {
   const handleLogout = async () => {
     'use server';
-    console.log('ログアウト中...');
     await signOut();
   };
   return (
