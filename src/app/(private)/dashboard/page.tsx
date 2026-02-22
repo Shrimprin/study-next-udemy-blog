@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import PostDropDownMenu from '@/components/post/PostDropDownMenu';
 import { Button } from '@/components/ui/button';
 import { getOwnPosts } from '@/lib/ownPost';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function DashboardPage() {
@@ -16,7 +17,9 @@ export default async function DashboardPage() {
     <div className="p-4">
       <div className="flex justify-between">
         <h1 className="mb-4 text-2xl font-bold">記事一覧</h1>
-        <Button>記事作成</Button>
+        <Button asChild>
+          <Link href="/manage/posts/create">記事作成</Link>
+        </Button>
       </div>
       <table className="w-full table-auto border-collapse border">
         <thead>

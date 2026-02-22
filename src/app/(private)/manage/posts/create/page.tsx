@@ -3,8 +3,9 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { createPost } from '@/lib/actions/createPost';
 import 'highlight.js/styles/github.css'; // コードハイライト用のスタイル
-import { useState } from 'react';
+import { useActionState, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import TextareaAutosize from 'react-textarea-autosize';
 import rehypeHighlight from 'rehype-highlight';
@@ -20,15 +21,21 @@ export default function CreatePage() {
     setContent(value);
     setContentLength(value.length);
   };
-  // const [state, formAction] = useActionState(createPost, { success: false, errors: {} });
+  const [state, formAction] = useActionState(createPost, { success: false, errors: {} });
 
   return (
     <div className="container mx-auto mt-10">
       <h1 className="mb-4 text-2xl font-bold">記事作成</h1>
-      <form className="space-y-4">
+      <form action={formAction} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="title">タイトル</Label>
           <Input type="text" name="title" id="title" placeholder="タイトル" required />
+          {state.errors.title && <p className="mt-1 text-sm text-red-500">{state.errors.title.join(', ')}</p>}
+        </div>
+        <div>
+          <Label htmlFor="topImage">トップ画像</Label>
+          <Input type="file" id="topImage" accept="image/*" name="topImage" />
+          {state.errors.topImage && <p className="mt-1 text-sm text-red-500">{state.errors.topImage.join(', ')}</p>}
         </div>
         <div>
           <Label htmlFor="content">内容(Markdown)</Label>
@@ -42,7 +49,10 @@ export default function CreatePage() {
             placeholder="Markdown形式で入力してください"
           />
         </div>
-        <div className="mt-1 text-right text-sm text-gray-500">文字数: {contentLength}</div>
+        <div className="mt-1 text-right text-sm text-gray-500">
+          文字数: {contentLength}
+          {state.errors.content && <p className="mt-1 text-sm text-red-500">{state.errors.content.join(', ')}</p>}
+        </div>
         <div>
           <Button type="button" onClick={() => setPreview(!preview)}>
             {preview ? '編集' : 'プレビュー'}
