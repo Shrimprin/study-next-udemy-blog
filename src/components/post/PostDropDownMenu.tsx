@@ -8,12 +8,12 @@ export default function PostDropDownMenu({ postId }: { postId: string }) {
         <DropdownMenuTrigger className="rounded-md border px-2 py-1">⋯</DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem asChild>
-            <Link href={`/posts/${postId}`} className="cursor-pointer">
+            <Link href={`/manage/posts/${postId}`} className="cursor-pointer">
               詳細
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={`/posts/edit/${postId}`} className="cursor-pointer">
+            <Link href={`/manage/posts/edit/${postId}`} className="cursor-pointer">
               編集
             </Link>
           </DropdownMenuItem>
