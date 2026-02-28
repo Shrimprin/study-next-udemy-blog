@@ -1,4 +1,4 @@
-import PublicHeader from '@/components/layout/publicHeader';
+import PublicHeader from '@/components/layout/PublicHeader';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

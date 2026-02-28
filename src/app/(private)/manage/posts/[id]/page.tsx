@@ -1,5 +1,6 @@
+import { auth } from '@/auth';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getPost } from '@/lib/post';
+import { getOwnPost } from '@/lib/ownPost';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import 'highlight.js/styles/github.css';
@@ -9,11 +10,17 @@ import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
 
-type Params = { params: Promise<{ id: string }> }; // urlの情報はparamsで渡ってくる
+type Params = { params: Promise<{ id: string }> };
 
-export default async function PostPage({ params }: Params) {
-  const { id } = await params; // paramsはPromise型で定義しつつawaitで非同期処理
-  const post = await getPost(id); // DBからid指定して情報取得
+export default async function ShowPage({ params }: Params) {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) {
+    throw new Error('ログインしてください');
+  }
+
+  const { id } = await params;
+  const post = await getOwnPost(userId, id);
 
   if (!post) {
     notFound();
